@@ -14,3 +14,9 @@ if __name__ == '__main__':
     db.add_row(User, ('228', "'GEOSAS Admin'"))
     db.add_row(User, ('229', "'GEOSAS User'"))
 
+    db.save()
+
+    input('Enter to delete user with 229 id')
+
+    db.delete_rows(User, where='user_id = 229')
+    db.save()
