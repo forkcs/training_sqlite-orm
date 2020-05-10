@@ -1,6 +1,8 @@
 import sqlite3
 import logging
 
+from liteorm.log import get_orm_logger
+
 
 class Database:
 
@@ -8,9 +10,7 @@ class Database:
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
 
-        logging.basicConfig()
-        self.logger = logging.getLogger('liteorm')
-        self.logger.setLevel(logging.DEBUG)
+        self.logger = get_orm_logger()
 
     def save(self) -> None:
         self.conn.commit()
