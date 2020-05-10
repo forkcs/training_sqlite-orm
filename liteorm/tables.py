@@ -35,3 +35,9 @@ class Table:
         sql_string = f'INSERT INTO {cls._get_name()} ({cls._column_names()}) VALUES ({str_row})'
         return sql_string
 
+    @classmethod
+    def sql_string_delete_rows(cls, where: str = None):
+        sql_string = f'DELETE FROM {cls._get_name()}'
+        if where is not None:
+            sql_string += f' WHERE {where}'
+        return sql_string

@@ -10,7 +10,7 @@ class Database:
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
 
-        self.logger = get_orm_logger()
+        self.logger = get_orm_logger(log_level=logging.DEBUG)
 
     def save(self) -> None:
         self.conn.commit()
@@ -48,5 +48,10 @@ class Database:
 
     def add_row(self, table, row: tuple):
         query = table.sql_string_add_raw(row=row)
+        self.logger.debug(f'Executing query: {query}')
+        self.cursor.execute(query)
+
+    def delete_rows(self, table, where: str = None):
+        query = table.sql_string_delete_rows(where=where)
         self.logger.debug(f'Executing query: {query}')
         self.cursor.execute(query)
